@@ -38,6 +38,10 @@
 \usepackage[table]{xcolor}
 \usepackage{array}
 \usepackage{ragged2e}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{pifont}
+\usepackage{booktabs}
 
 %% We encourage the use of mathptmx for consistent usage of times font
 %% throughout the proceedings. However, if you encounter conflicts
@@ -58,6 +62,9 @@
   plainpages = false,
   linktocpage
 }
+
+\newcommand*\rot{\rotatebox{90}}
+\newcommand*\OK{\ding{51}}
 
 \newcommand{\bstart}[1]{\vspace{1mm} \noindent{\textbf{#1:}}}
 
@@ -107,18 +114,12 @@
 %\shortauthortitle{Firstauthor \MakeLowercase{\textit{et al.}}: Paper Title}
 
 %% Abstract section.
-\abstract{Duis autem vel eum iriure dolor in hendrerit in vulputate
-velit esse molestie consequat, vel illum dolore eu feugiat nulla
-facilisis at vero eros et accumsan et iusto odio dignissim qui blandit
-praesent luptatum zzril delenit augue duis dolore te feugait nulla
-facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
-sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna
-aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper
-suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem
-vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et
-accumsan et iusto odio dignissim qui blandit praesent luptatum zzril
-delenit augue duis dolore te feugait nulla facilisi.
+\abstract{
+The energy behaviour of a portfolio of commercial buildings is difficult to monitor and analyze, as current analysis tools used in this domain are either not scalable or present derived and aggregated data that is too coarse.
+In partnership with a commercial energy analysis software development company, we conducted a visualization design study, beginning with a thorough work domain analysis and a characterization of data and task abstractions.
+We describe generalizable visualization design choices framed in terms of \textsl{matches} and \textsl{mismatches} with reference to to the \textsl{Nested Blocks and Guidelines Model}~\cite{Meyer2013}, choices that are transferable beyond the energy analysis domain. 
+We also present guidelines pertaining to the themes of \textsl{familiarity} and \textsl{trust}, as well as methodological considerations for visualization design projects in corporate settings, and especially those with internal collaborators their and external clients.
+As a result of our research, our designs were adopted by our collaborator into their production timeline of a commercial energy analysis application that will soon be deployed to hundreds of thousands of customers.
 } % end of abstract
 
 %% Keywords that describe your work. Will show as 'Index Terms' in journal
@@ -189,7 +190,12 @@ This paper documents a success story where our industry collaborator adopted som
 We also present guidelines that relate to {\bf familiarity}, balancing familiar visualization designs with visual encodings that prospective user may have never seen before; as well as {\bf trust}, which relates to the appropriate display of derived and aggregated data, and giving users control over these data transformations.
 And finally we contribute {\bf methodological advice} for visualization design projects in an industry context where prospective users include both the industry collaborator's employees and their remote external clients.
 
-\bstart{Outline} the outline for this paper, as you've noticed, is in the margin.
+\bstart{Outline} we begin by describing the commercial energy domain in Section~\ref{domain}.
+We then characterize the data and tasks in Section~\ref{abstractions}; we consider how the three tasks we characterized are supported by the existing {\it Energy Manager} tool in Section~\ref{existing-tool}, and how previous work addresses similar data and tasks in Section~\ref{related-work}.
+In Section~\ref{design}, we present our designs and characterize them in terms of {\bf matches} and {\bf mismatches} for the three tasks.
+The result of our design process, the adoption of our visualization designs into production, are described in Section~\ref{production}.
+In Section~\ref{discussion}, we reflect on the themes of {\bf familiarity} and {\bf trust}, as well as on methodological considerations for visualization design studies in corporate settings.
+Finally, Section~\ref{conclusion} summarizes our contributions.
 
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
@@ -222,7 +228,7 @@ To achieve these goals, the energy workers would need to assess the behaviour of
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
 
-Now lets characterize these domain problems in terms of data and task abstractions.
+Now let's characterize these domain problems in terms of data and task abstractions.
 
 %-------------------------------------------------------------------------
 
@@ -231,7 +237,9 @@ Now lets characterize these domain problems in terms of data and task abstractio
 
 %-------------------------------------------------------------------------
 
-I'll begin with characterizing the data.
+We begin with characterizing the data.
+
+% table: data abstractions with examples
 
 \bstart{Categorical, quantitative, and spatial metadata} each building is an item with a unique identifier. 
 It had quantitative attributes such as its area, age, and number of occupants; each building has a location; each building has a potentially arbitrary number of categorical attributes or tags; consider a university, where buildings are differentiated by type, like classroom or laboratory, differentiated by campus or department, like chemistry and physics, or differentiated by the name of the building operations staff responsible for the building. 
@@ -249,7 +257,7 @@ These include {\bf averages}, {\bf minimums}, {\bf maximums}, and {\bf sums} for
 {\bf Consumption} is the most common derived attribute, which is an accumulated amount of energy.
 {\bf Intensity} is consumption normalized by buildings area, which allows you to compare the energy behaviour of buildings of different size.
 Similarly, it's possible to {\bf normalize} energy behaviour values further by considering outdoor temperature, which allows you to compare buildings at different times of the year or buildings in different climate zones.
-{\bf Predicted energy behaviour} based on statistical models are also considered, though these are problematic for reasons I'll describe in a few slides.
+{\bf Predicted energy behaviour} based on statistical models are also considered, though these are problematic for reasons we describe in Section~\ref{existing-tool}.
 {\bf Relative} and {\bf absolute differences} from the observed energy behaviour and the predicted or historical behaviour are also important; for example, you could determine how much better or worse a building is performing relative to last year.
 And finally, given any of these derived values, you can create a {\bf ranking} to answer questions like {\it ``which are the top 5 worst performing buildings in my portfolio?''}.
 
@@ -260,7 +268,9 @@ And finally, given any of these derived values, you can create a {\bf ranking} t
 
 %-------------------------------------------------------------------------
 
-I realize that there are quite a lot of data abstractions to consider, so I hope you're still with me. Let's move on now to the task abstractions.
+Let's move on now to the task abstractions.
+
+% table: task abstractions with examples
 
 We characterized the task abstractions in this project using a recent task typology~\cite{Brehmer2013}, distinguishing between actions and targets~\cite{Munzner2014}.
 
@@ -288,9 +298,11 @@ You'll also notice the cycling between Detail ({\bf T2}) and Proportion ({\bf T1
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
 
-Now that I've characterized the data and task abstractions, we can analyze existing tools and related work and determine the extent to which the tasks are supported.
+Now that we have characterized the data and task abstractions, we can analyze existing tools and related work and determine the extent to which the tasks are supported.
 
-I'll focus on {\it Energy Manager} first, our collaborator's existing software, which all of the energy workers we interviewed had used to a varying extent for performing portfolio energy analysis.
+% figure: energy manager screenshots
+
+We focus on {\it Energy Manager} first, our collaborator's existing software, which all of the energy workers we interviewed had used to a varying extent for performing portfolio energy analysis.
 
 {\it Energy Manager} is a multiple-page, multiple-view web-based application.
 A summary dashboard is shown in the main page (the larger image on the right). 
@@ -318,7 +330,7 @@ Due to these limitations, {\it Energy Manager} provides only tiny slices of the 
 
 \bstart{Interview observations} the energy workers that we interviewed varied tremendously in terms of their use of {\it Energy Manager}: how they used it and how often, some weekly or daily, some using it quarterly or biannually.
 Many of those we interviewed would routinely export data from {\it Energy Manager} and import it into {\it Excel} to perform custom analysis or create custom reports.
-Furthermore, those that we interviewed didn't trust {\it Energy Manager}'s derived predicted values based on statistical models, and that comparing to historical data would be preferred.
+Furthermore, those that we interviewed didn't {\bf trust} {\it Energy Manager}'s derived predicted values based on statistical models, and that comparing to historical data would be preferred.
 Finally, many of the derived aggregate values presented in {\it Energy Manager} were too coarse. In other words, there was a lack of {\bf trust} as a result of this loss of detail: these derived and aggregated values may be hiding information such as extreme values and distributions.
 
 %-------------------------------------------------------------------------
@@ -333,13 +345,13 @@ Finally, many of the derived aggregate values presented in {\it Energy Manager} 
 So how is this set of data and task abstractions addressed in related work?
 
 \bstart{Energy visualization} before we look broadly in the visualization literature, let's consider related work in the energy domain.
-Erickson~\etal~\cite{Erickson2013} recently presented a web-based residential energy dashboard for home-owners, allowing them to compare against their neighbours with familiar bar and line charts. 
+Erickson~\etal~\cite{Erickson2013} recently presented a web-based residential energy dashboard for home-owners, allowing them to compare against their neighbours with {\bf familiar} bar and line charts. 
 However, this didn't address the analysis work of someone overseeing a portfolio of many buildings.
 More than 15 years ago, van Wijk and van Selow~\cite{vanWijk1999} presented a calendar matrix visualization for time-series data, and one use case they considered was the energy behaviour of a single building.
 Later we'll examine how this could be extended to multiple buildings.
 
 There are also several recent examples of using {\bf map-based visualizations} to summarize the energy behaviour of many buildings in a local area~\cite{Heat2014,MEP2014}.
-We found through our interviews with collaborators and their clients that maps are fine for presenting coarse aggregate summary values of energy behaviour but not for analysis work of multiple time series, especially when the energy worker is already familiar with the locations of buildings in their portfolio, which may span large geographic areas. 
+We found through our interviews with collaborators and their clients that maps are fine for presenting coarse aggregate summary values of energy behaviour but not for analysis work of multiple time series, especially when the energy worker is already {\bf familiar} with the locations of buildings in their portfolio, which may span large geographic areas. 
 On the other hand, maps may be an effective way to filter a building portfolio by location, which is a feature that have considered.
 
 Most closely related to our work is that of Goodwin~\etal~\cite{Goodwin2013}, who presented a few prototype visualizations of modelled residential energy use at the device-level scale across thousands of households. 
@@ -364,20 +376,22 @@ However, these pertain to continuous time series, while our work examines both c
 
 We're now ready to dive into the visualization design.
 
+% figure: annotated sandbox
+
 \bstart{An energy portfolio visualization sandbox} in this project, we developed an interactive visualization design sandbox, one where we could easily prototype different visualization designs. 
-Most of the designs in the following slides were produced within this interactive environment, which was developed using RStudio's Shiny framework\footnote{\url{shiny.rstudio.com}}.
+Most of the designs in the following slides were produced within this interactive environment, which was developed using RStudio's Shiny web application framework\footnote{\url{shiny.rstudio.com}}.
 Most importantly, we put interactive controls for filtering, aggregating, unit selection, and normalization front and centre in the interface, as these options were largely absent from {\it Energy Manager}.
 We deployed this visualization sandbox environment on our collaborator's local intranet. 
-It is also accessible publicly on shinyapps.io\footnote{\url{mattbrehmer.shinyapps.io/PortfolioSandbox} \\username: {\tt ieeevis}; password: {\tt vis2015}}, though we had to use a small anonymized dataset for the latter due to client privacy concerns.
+It is also accessible publicly\footnote{\url{mattbrehmer.shinyapps.io/PortfolioSandbox} \\username: {\tt ieeevis}; password: {\tt vis2015}}, though we had to use a small anonymized dataset for the latter due to client privacy concerns.
 
 \bstart{Nested blocks and guidelines} we'll discuss the visualizations themselves with respect to the Nested Blocks and Guidelines Model by Meyer~\etal~\cite{Meyer2013}. 
 We've already described the relationship between domain activity blocks, and the data and task abstraction blocks. 
 Now we'll consider the space of techniques and highlight guidelines for matching technique blocks to abstraction blocks. 
-Since the space of possible techniques that we know of is large, we considered a few of them, implemented a subset of these, and ultimately selected a few good matches based on evaluation that coincided with design.
+Since the space of possible techniques that we know of is large, we considered a few of them, implemented a subset of these, and ultimately selected a few good matches based on evaluation that coincided with design~\cite{Sedlmair2012}.
 
 \bstart{Matches \& mismatches} we identified five matches between tasks ({\bf T1--T3}) and visualization techniques. 
 We also identified four mismatches and one potential match. 
-In the following slides I'll explain the techniques we chose as well as Why they were matches or mismatches.
+In the following subsections we explain the techniques we chose as well as why they were matches or mismatches.
 
 \bstart{Evaluation} the evidence for these matches and mismatches emanates from an evaluation that occurred alongside our design. 
 During the four month development period we had weekly feedback sessions with our collaborators, two evaluation sessions with two external ``power users'' from our original set of nine interviewees. 
@@ -391,14 +405,14 @@ We later annotated these slide decks based on their comments and suggestions.
 Later, we consolidated all of our findings into a master slide deck, which was presented to our collaborator as an evidence-based research summary. 
 The following slides present a subset of these findings.
 
-So let's dive in to the design.
-
 %-------------------------------------------------------------------------
 
 \subsection{Faceted Visualizations for Overview and Detail Tasks}
 \label{design-faceting}
 
 %-------------------------------------------------------------------------'
+
+% figure: faceting
 
 We first tried to address the Overview ({\bf T1}) and Detail ({\bf T2}) tasks. 
 Recall that an example Overview question is {\it ``How did my entire building portfolio perform this past year?''}, while an example Detail question is {\it ``Are my restaurants in Vancouver performing better this January than they did last January?''}.
@@ -412,12 +426,12 @@ In addition, one of the two power users that we interviewed stated that the bars
 They don't show ranges or extreme values.
 
 \bstart{Faceted boxplots} this is why we considered faceted boxplots, to be able to compare ranges and distributions for multiple items at different points in time, such as from over the course of several months.
-However, we found that most people we spoke to, both employees and clients, weren't familiar with boxplots, except for a minority who had taken a postsecondary stats class. 
+However, we found that most people we spoke to, both employees and clients, weren't {\bf familiar} with boxplots, except for a minority who had taken a post-secondary stats class. 
 Furthermore, unlike faceted bar charts where you only need to make comparisons of position aligned to a each facet's baseline: comparisons in faceted boxplots are more difficult because you are comparing multiple positions and widths across separate facets. 
 It is therefore a daunting introduction to box plots for those unfamiliar with them and a poor match for the Detail ({\bf T2}) task.
 
 \bqstart{Faceted line charts}, however, are a good match for the Detail ({\bf T2}) task, especially with continuous quantitative time-series values such as energy demand; and they are a scalable alternative to superimposed line charts. 
-Furthermore, the line chart encoding is already quite familiar to the energy workers that we interviewed.
+Furthermore, the line chart encoding is already quite {\bf familiar} to the energy workers that we interviewed.
 
 %-------------------------------------------------------------------------
 
@@ -426,21 +440,23 @@ Furthermore, the line chart encoding is already quite familiar to the energy wor
 
 %-------------------------------------------------------------------------
 
+% figure: bar + bump
+
 Let's return now to that Overview ({\bf T1}) task and try something other than faceting.
 Remember how the ranking table in {\it Energy Manager} was never used for the Overview ({\bf T1}) task? In that it only provided coarse aggregated values for each item for one time period.
 We considered encodings for displaying rank as well as rank change over time.
 
-\bstart{Bump plots} the first of these, a bump plot, uses a familiar line encoding and shows rank change over time. 
+\bstart{Bump plots} the first of these, a bump plot, uses a {\bf familiar} line encoding and shows rank change over time. 
 The problem with this encoding is that it is difficult to distinguish items using colour, since there are only a handful of viable colours. 
 Alternatively, we could highlight items by rank change or rank variation.
 In addition, bump plots only show relative rank and rank change, whereas the absolute values that produce the ranks are hidden. 
 As a result this a loss of detail, the bump plot is also a poor match for the Overview ({\bf T1}) task.
 
-\bstart{Bump + bar plots} we then considered an encoding that incorporates both relative rank, rank change, and absolute value, by adding familiar bars to each point in the bump plot series of ranks. 
+\bstart{Bump + bar plots} we then considered an encoding that incorporates both relative rank, rank change, and absolute value, by adding {\bf familiar} bars to each point in the bump plot series of ranks. 
 This is similar to some recent related work that proposed techniques that display both relative rank and absolute value~\cite{Gratzl2013,Hur2013}. 
 We still face the scalability problem associated with colour discriminability. 
 A combination of interaction and highlighting by rank change or rank variation might improve this visualization.
-The energy workers that we interviewed did respond well to this visualization, as it is composed of familiar encodings: bars and lines. 
+The energy workers that we interviewed did respond well to this visualization, as it is composed of {\bf familiar} encodings: bars and lines. 
 However, we came to realize that ranks as derived values are infrequently considered, perhaps only on a quarterly or annual basis, and that the bars can only convey coarse aggregates such as sums or averages. 
 Therefore, the hunt for a good Overview ({\bf T1}) visualization continued.
 
@@ -451,12 +467,14 @@ Therefore, the hunt for a good Overview ({\bf T1}) visualization continued.
 
 %-------------------------------------------------------------------------
 
+% figure: matrix-based visualizations
+
 With faceting and rank-based visualizations proving ineffective, we next turned to a matrix-based representation for the Overview ({\bf T1}) task.
 
 \bstart{Time-series matrix} matrix representations such as these are both scalable and space-efficient.
 Similar representations have been used in related work~\cite{Goodwin2013}.
 These representations allow us to display observed as well as differential data, as you can see with the diverging colour scale in the bottom right matrix.
-Most of the energy workers that we interviewed were unfamiliar with this form of encoding, except one energy analyst who routinely made such visualizations in {\it Excel}. 
+Most of the energy workers that we interviewed were {\bf unfamiliar} with this form of encoding, except one energy analyst who routinely made such visualizations in {\it Excel}. 
 As a result, it took more effort to convince our collaborators of the value of matrix representations such as these.
 We also initially referred to this visualization as a ``heatmap'', and this led to some confusion, as heat is already an energy-related word and the buildings have location, though this encoding does not take spatial location into account.
 We also discovered that while red is fine for use in diverging colour scales, as it has a negative connotation, and is therefore inappropriate for unidirectional colour scales. 
@@ -464,13 +482,13 @@ We also learned in later interviews that users found diverging colour scales eas
 Because of this uncertainty, we realized that more work needed to be done.
 
 \bstart{Calendar matrix} We extended this matrix visualization by partitioning the cells corresponding to months into calendars, and this was inspired by previous work~\cite{vanWijk1999}. 
-The calendar layout is familiar and allows us to show data at finer granularities than months, so this was very well-received by those we interviewed and served to reduce the unfamiliarity of the matrix layout.
+The calendar layout is {\bf familiar} and allows us to show data at finer granularities than months, so this was very well-received by those we interviewed and served to reduce the unfamiliarity of the matrix layout.
 While promising, we continued to explore this design direction.
 
 \bstart{Matrix with auxiliary boxplots} one problem with the matrix encodings is that they convey only coarse aggregate values: averages or sums. 
 Calendar partitioning is one way to show a finer resolution in the same amount of space. 
 Here we complement the aggregate values in the matrix by juxtaposing boxplots encoding ranges and distributions for each row of the time series. 
-Though the issue of boxplot familiarity is unresolved, these boxplots are easier to read than faceted boxplots, and they're reinforced by data shown the matrix, which is preferable to showing boxplots in isolation. 
+Though the issue of boxplot {\bf familiarity} is unresolved, these boxplots are easier to read than faceted boxplots, and they're reinforced by data shown the matrix, which is preferable to showing boxplots in isolation. 
 Together the matrix with juxtaposed boxplots is a match for the Overview ({\bf T1}) task.
 
 %-------------------------------------------------------------------------
@@ -479,6 +497,8 @@ Together the matrix with juxtaposed boxplots is a match for the Overview ({\bf T
 \label{design-proportion}
 
 %-------------------------------------------------------------------------
+
+% figure: proportion visualizations
 
 Finally, now with the Overview ({\bf T1}) and Detail ({\bf T2}) tasks addressed, the Proportion ({\bf T3}) task remains. 
 Recall that a typical question here could be ``what proportion of a university's energy consumption is consumed by its computer science building over time?''.
@@ -496,10 +516,12 @@ As a result of this juxtaposition and linking, both the Detail ({\bf T2}) and Pr
 
 %-------------------------------------------------------------------------
 
+% table: task abstractions with examples + matches, mismatches
+
 To recap, we identified five matches between tasks ({\bf T1--T3}) and visualizations. 
 We also identified four mismatches and one potential match: that of a bump + bar plot for showing rank change over time; our hesitation to call this a match stems not from a problem with the visualization itself, but from energy workers' low priority on ranks as derived data.
 
-Considering these tasks ({\bf T1--T3}), these five matches serve as generalizable guidelines that may apply beyond the energy domain.
+Considering these tasks ({\bf T1--T3}), these five matches serve as generalizable guidelines that are transferable beyond the energy domain.
 
 %-------------------------------------------------------------------------
 
@@ -531,12 +553,14 @@ So what was the result of all this design work?
 We had documented these matches and mismatches and presented them to our collaborator, along with our sandbox prototyping environment and mockups.
 Our collaborator then ultimately decided what to implement from our prototype designs. 
 
+%figure: energy manager ++
+
 \bstart{Energy Manager ++} we're pleased to report that our collaborators adopted a number of our visualization designs into a new version of {\it Energy Manager}, which will soon be deployed to its large client base of potentially hundreds of thousands of users.
 They made filtering and aggregation through the use of categorical building tags front and featured these prominently in the interface. 
 They incorporated the matrix with auxiliary boxplots, and called it a ``site overview'', which avoids the ``heatmap'' misnomer, and matches our characterization of the Overview ({\bf T1}) task. 
 They also adopted both stacked bar and area charts as well as faceted bar and line charts for the Detail ({\bf T2}) and Proportion ({\bf T3}) tasks.
 They also provided linking between the visualizations, which you'll see in a moment.
-Finally, they provided the ability to compare observed values against trusted historical values, instead of or in addition to comparing observed values to less trusted predicted values generated by a statistical model.
+Finally, they provided the ability to compare observed values against {\bf trusted} historical values, instead of or in addition to comparing observed values to less {\bf trusted} predicted values generated by a statistical model.
 
 \bstart{Coordinated matrix \& boxplots} you'll notice the coordination between the matrix cells and boxplots, with the boxplots updating on mouseover of matrix cells. 
 Our collaborators also added the ability to adjust the colour scale bounds.
@@ -566,13 +590,13 @@ Let's step back now to go over some of the higher-level discussion points from t
 
 In addition to the specific guidelines regarding matches and mismatches described earlier, we propose more general guidelines relating to the themes of {\bf familiarity} and {\bf trust}.
 
-\bstart{Familiarity} first, we learned that the juxtaposition of two {\bf unfamiliar} encodings (a matrix and a boxplot) along with coordinated interaction and highlighting may facilitate learning of these novel encodings. 
+\bstart{Familiarity} first, we learned that the juxtaposition of two unfamiliar encodings (a matrix and a boxplot) along with coordinated interaction and highlighting may facilitate learning of these novel encodings. 
 Adding complexity seemed to improve interpretability. 
 The same can be said about how diverging colour scales were easier to interpret that unidirectional colour scales, or how providing the ability to adjust the colour scale bounds improved matrix interpretation.
-And that familiar encodings, such as bars and lines, combined in {\bf unfamiliar} ways, such as in the bump and bar plot, are very quickly understood.
+And that familiar encodings, such as bars and lines, combined in unfamiliar ways, such as in the bump and bar plot, are very quickly understood.
 And finally, that visualization names themselves can be misleading: ``heatmap'' and ``boxplot'' were particular sources of confusion with those we spoke to.
 
-\bstart{Trust} with regards to {\bf trust}, we know that visualizations of derived aggregate values result in loss of detail (such as bar charts in the original {\it Energy Manager} and the cells of time-series matrix): by complementing these with visualizations of range and distribution (such as boxplots), the energy analyst gets a more complete overview of the data.
+\bstart{Trust} with regards to trust, we know that visualizations of derived aggregate values result in loss of detail (such as bar charts in the original {\it Energy Manager} and the cells of time-series matrix): by complementing these with visualizations of range and distribution (such as boxplots), the energy analyst gets a more complete overview of the data.
 We also emphasized the need for explicit and obvious controls for filtering, aggregation, and normalization in the interface, controls that were missing in the original {\it Energy Manager}, as well as the need for alternatives to predicted values derived from statistical models that the energy workers didn't trust. 
 By giving these controls to the energy worker and providing them with more agency over the creation of derived values, the derived and aggregated values are more trusted. 
 
@@ -582,6 +606,8 @@ By giving these controls to the energy worker and providing them with more agenc
 \label{discussion-methodology}
 
 %-------------------------------------------------------------------------
+
+%table: methodology phases and artefacts
 
 Another point of discussion is our methodology for conducting this visualization design study in an industry setting where the stakeholders included both our collaborator and their external clients. 
 These phases were referenced earlier in this talk, and this slide summarizes the phases and the research artefacts generated at each phase. Note that some of the phases overlap.
@@ -599,7 +625,7 @@ We faced many of the same challenges identified by them.
 
 \bstart{Grounding designs in extensive qualitative analysis} we succeeded in convincing our collaborators to adopt our visualization designs as a result of the methodology we undertook. 
 The rigorous user research: collecting, analyzing, and documenting of qualitative data before and during design allowed us to justify our design decisions, much in the same way that the results of a controlled experiment can justify design decisions. 
-One collaborator remarked that we confirmed their earlier suspicions of what was wrong with {\it Energy Manager}, that we performed an analysis of [{\it Energy Manager}'s] flaws in a systematic way, put a name on them, and then tested with users.
+One collaborator remarked that we confirmed their earlier suspicions of what was wrong with {\it Energy Manager}, that {\it ``we performed an analysis of [{\it Energy Manager}'s] flaws in a systematic way, put a name on them, and then tested with users''}.
 
 \bstart{Web-based visualization sandbox prototyping} there are aspects of our design and evaluation methodology that we think may generalize to other visualization design studies, especially those involving both local collaborators and their remote clients. 
 For one, we used a web-based interactive sandbox prototyping environment to study matches between visualizations and tasks and to consider how the visualizations would work together in sequential workflows.
@@ -616,7 +642,7 @@ They are also easy to share, especially with collaborators and external prospect
 %-------------------------------------------------------------------------
 
 This paper covered the visualization design and evaluation process until the designs left our hands and were adopted into our collaborator's production timeline.
-In future work, we would like to assess the adoption of the redesigned Energy Manager, tracking usage over an extended period of time and following-up later with additional interviews and focus groups.
+In future work, we would like to assess the adoption of the redesigned {\it Energy Manager}, tracking usage over an extended period of time and following-up later with additional interviews and focus groups.
 
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
@@ -627,8 +653,8 @@ In future work, we would like to assess the adoption of the redesigned Energy Ma
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
 
-So, to conclude this paper, we’ll review the contributions.
-We described generalizable visualization design choices framed in terms of {\bf matches} and {\bf mismatches} that may apply beyond the energy analysis domain, for three tasks ({\bf T1--T3}) and a multidimensional table involving multiple time series, as well as more general guidelines pertaining to {\bf familiarity} and {\bf trust}.
+So, to conclude this paper, we'll review the contributions.
+We described generalizable visualization design choices framed in terms of {\bf matches} and {\bf mismatches} that are transferable beyond the energy analysis domain, for three tasks ({\bf T1--T3}) and a multidimensional table involving multiple time series, as well as more general guidelines pertaining to {\bf familiarity} and {\bf trust}.
 We also contributed {\bf methodological guidance} for visualization design projects in a corporate setting with internal collaborators their and external clients.
 
 As a result of our research, our designs were adopted by our collaborator into their production timeline of a commercial energy analysis application that will be deployed to hundreds of thousands of customers.
