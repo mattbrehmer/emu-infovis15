@@ -31,7 +31,7 @@
 \usepackage{epstopdf}
 \usepackage{paralist}
 \usepackage[tight]{subfigure}
-\usepackage{color}
+\usepackage[usenames, dvipsnames]{color}
 \usepackage{textcomp}
 \usepackage{program}
 \usepackage{stfloats}
@@ -63,8 +63,17 @@
   linktocpage
 }
 
+\definecolor{darkGreen}{RGB}{0, 100, 0}
+\definecolor{nmGreen}{RGB}{225, 255, 194}
+\definecolor{nmOrange}{RGB}{254, 225, 194}
+\definecolor{nmYellow}{RGB}{255, 255, 208}
+
 \newcommand*\rot{\rotatebox{90}}
 \newcommand*\OK{\ding{51}}
+
+\newcommand*\match{\textcolor{darkGreen}{\ding{52}}}
+\newcommand*\mismatch{\textcolor{red}{\ding{54}}}
+\newcommand*\posmatch{\textcolor{blue}{{\bf ?}}}
 
 \newcommand{\bstart}[1]{\vspace{1mm} \noindent{\textbf{#1:}}}
 
@@ -115,7 +124,7 @@
 
 %% Abstract section.
 \abstract{
-The energy behaviour of a portfolio of commercial buildings is difficult to monitor and analyze, as current analysis tools used in this domain are either not scalable or present derived and aggregated data that is too coarse.
+The energy performance of a portfolio of commercial buildings is difficult to monitor and analyze, as current analysis tools used in this domain are either not scalable or present derived and aggregated data that is too coarse.
 In partnership with a commercial energy analysis software development company, we conducted a visualization design study, beginning with a thorough work domain analysis and a characterization of data and task abstractions.
 We describe generalizable visualization design choices framed in terms of \textsl{matches} and \textsl{mismatches} with reference to to the \textsl{Nested Blocks and Guidelines Model}~\cite{Meyer2013}, choices that are transferable beyond the energy analysis domain. 
 We also present guidelines pertaining to the themes of \textsl{familiarity} and \textsl{trust}, as well as methodological considerations for visualization design projects in corporate settings, and especially those with internal collaborators their and external clients.
@@ -171,7 +180,7 @@ As a result of our research, our designs were adopted by our collaborator into t
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
 
-This is a visualization design study, where visualization is used to analyze the energy behaviour of portfolios of dozens to hundreds of commercial buildings. 
+This is a visualization design study, where visualization is used to analyze the energy performance of portfolios of dozens to hundreds of commercial buildings. 
 Furthermore, this is a redesign study, which took place in collaboration with a company that develops commercial energy analysis and reporting software.
 
 Our industry collaborator's goal in this project was to deploy a redesigned energy analysis software tool, called {\it Energy Manager}, to retain existing clients, to attract new ones, and to increase engagement. 
@@ -215,9 +224,9 @@ Some of these interviews took place locally, others were done via Skype, as most
 We found a wide range in terms of roles, job titles, skill sets, levels of training, and the tools that were used, which included {\it Energy Manager}; to which we inquired about its context and frequency of use.
 
 \bstart{Domain goals and activities} though the energy workers we interviewed reported a range of roles and responsibilities, there were some common goals and activities.
-These individuals oversaw the energy behaviour of portfolios of dozens to hundreds of buildings, such as a school board, a university, or a hotel chain. 
+These individuals oversaw the energy performance of portfolios of dozens to hundreds of buildings, such as a school board, a university, or a hotel chain. 
 They needed to balance a need to reduce costs and conserve energy while ensuring the comfort and safety of people who used the buildings.
-To achieve these goals, the energy workers would need to assess the behaviour of buildings in their portfolio following an energy conservation measure, such as installing new windows or lighting, they would determine which buildings in their portfolio require energy conservation measures, and they would find and diagnose anomalous energy behaviour such as spikes, outages, surges, or otherwise erratic and inconsistent energy behaviour.
+To achieve these goals, the energy workers would need to (1) assess the performance of buildings in their portfolio following an energy conservation measure, such as installing new windows or lighting, (2) determine which buildings in their portfolio require energy conservation measures, and (3) find and diagnose anomalous energy performance such as spikes, outages, surges, or otherwise erratic and inconsistent energy performance.
 
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
@@ -227,6 +236,16 @@ To achieve these goals, the energy workers would need to assess the behaviour of
 
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
+
+\begin{figure}[t]
+    % \vspace{-0.6cm}
+	\centering
+	\includegraphics[width=0.67\columnwidth]{figures/blocks-and-mappings.pdf}
+	\vspace{-0.3cm}
+	\caption{The \textsl{nested blocks and guidelines model}~\cite{Meyer2013}. We propose \textsl{guidelines} framed in terms of \textsl{matches} and \textsl{mismatches} between abstraction \textsl{blocks} and idiom \textsl{blocks}.}
+	\label{fig:nested-model}
+	\vspace{-0.6cm}
+\end{figure} 
 
 Now let's characterize these domain problems in terms of data and task abstractions.
 
@@ -239,7 +258,127 @@ Now let's characterize these domain problems in terms of data and task abstracti
 
 We begin with characterizing the data.
 
-% table: data abstractions with examples
+\begin{table}[ht]\renewcommand{\arraystretch}{1.2}\addtolength{\tabcolsep}{-1pt}
+    \vspace{-.3cm}
+    \begin{center}
+    \scriptsize
+    \begin{tabular}{l|l|l}
+
+        \rowcolor{red!15}
+    
+        {\bf Term} & {\bf Abstraction} & {\bf Example}
+    
+        \\
+        
+        \hline
+        
+        \multicolumn{3}{c} {\it Building metadata} 
+        
+        \\
+    
+        \hline
+        
+        Building ID & unique categorical & \#123
+    
+        \\
+        
+        \rowcolor{gray!15}
+        
+        Building area & quantitative & 450 m$^{2}$
+    
+        \\
+        
+        Building age & quantitative & 20 years
+    
+        \\
+        
+        \rowcolor{gray!15}
+        
+        No. occupants & quantitative & 50 people
+    
+        \\
+        
+        Location & spatial & 49.25$^{\circ}$ N, 123.10$^{\circ}$ W
+    
+        \\
+        
+        \rowcolor{gray!15}  
+        
+        Tag & categorical & {\it ``restaurant''}
+    
+        \\
+        
+        \hline
+        
+        \multicolumn{3}{c} {\it Temporal data for each building} 
+        
+        \\
+    
+        \hline
+        
+        Energy demand & quantitative & 200 kW
+    
+        \\
+        
+        \rowcolor{gray!15}
+        
+        Outside temperature & quantitative & 18$^{\circ}$ C
+    
+        \\
+        
+        Open / closed & categorical & Open Mon--Fri, 08-18h
+    
+        \\
+        
+        \hline
+        
+        \multicolumn{3}{c} {\it Derived temporal data for each building} 
+        
+        \\
+    
+        \hline
+        
+        Consumption & quantitative & 800 kWh
+    
+        \\
+        
+        \rowcolor{gray!15}
+        
+        Energy intensity & normalized quantitative & 1.78 kWh / m$^{2}$
+    
+        \\
+    
+        Weather-independent & normalized quantitative & 200 kWh / HDD$^\ddagger$
+    
+        \\ 
+        
+        performance$^\dagger$ & & (Heating Degree Days)
+        
+        \\
+        
+        \rowcolor{gray!15}
+        
+        Predicted perform.$^\dagger$ & quantitative & 190 kW
+        
+        \\
+        
+        Relative differential & normalized quantitative & -- 40\%
+        
+        \\
+        
+        Rank & ordinal & 1st, 2nd, 3rd
+        
+        \\
+        
+        \hline  
+        
+    \end{tabular}
+    \vspace{-0.3cm}
+    \caption{A summary of the data abstractions. $^\dagger$\textsl{Performance} could be \textsl{demand}, \textsl{consumption}, or \textsl{intensity}. $^\ddagger$Heating and Cooling Degree Days (HDD, CDD) are derived aggregate values relative to temperature thresholds where a building's heating or cooling system is activated.}
+    \label{tab:data-abstractions}
+    \end{center}
+    \vspace{-0.6cm}
+\end{table}
 
 \bstart{Categorical, quantitative, and spatial metadata} each building is an item with a unique identifier. 
 It had quantitative attributes such as its area, age, and number of occupants; each building has a location; each building has a potentially arbitrary number of categorical attributes or tags; consider a university, where buildings are differentiated by type, like classroom or laboratory, differentiated by campus or department, like chemistry and physics, or differentiated by the name of the building operations staff responsible for the building. 
@@ -247,18 +386,18 @@ It had quantitative attributes such as its area, age, and number of occupants; e
 \bstart{Item groups} Since we're interested in portfolios of many buildings, we can have groupings of buildings using these attributes. 
 A portfolio may have many alternative groupings, and they may overlap.
 
-\bstart{Multiple time-series / building} the energy behaviour of each of those buildings is being monitored over time and time of course is both sequential and cyclic.
+\bstart{Multiple time-series / building} the energy performance of each of those buildings is being monitored over time and time of course is both sequential and cyclic.
 So in effect we have a multidimensional table of buildings, building attributes, and quantitative attributes changing over time.
-The energy behaviour of each building has multiple time series associated with it, such as the electricity demand, the outside air temperature, whether the building is open or closed; the latter is important because we're speaking about commercial buildings.
+The energy performance of each building has multiple time series associated with it, such as the electricity demand, the outside air temperature, whether the building is open or closed; the latter is important because we're speaking about commercial buildings.
 
 \bstart{Derived data} the raw electricity demand or temperature time series can be helpful for detailed investigations of single buildings. 
 It is more often the case that individuals performing energy analysis activities are looking at {\bf derived} and {\bf aggregated} data. 
 These include {\bf averages}, {\bf minimums}, {\bf maximums}, and {\bf sums} for different time periods of interest, such as average weekday electricity demand in January.
 {\bf Consumption} is the most common derived attribute, which is an accumulated amount of energy.
-{\bf Intensity} is consumption normalized by buildings area, which allows you to compare the energy behaviour of buildings of different size.
-Similarly, it's possible to {\bf normalize} energy behaviour values further by considering outdoor temperature, which allows you to compare buildings at different times of the year or buildings in different climate zones.
-{\bf Predicted energy behaviour} based on statistical models are also considered, though these are problematic for reasons we describe in Section~\ref{existing-tool}.
-{\bf Relative} and {\bf absolute differences} from the observed energy behaviour and the predicted or historical behaviour are also important; for example, you could determine how much better or worse a building is performing relative to last year.
+{\bf Intensity} is consumption normalized by buildings area, which allows you to compare the energy performance of buildings of different size.
+Similarly, it's possible to {\bf normalize} energy performance values further by considering outdoor temperature, which allows you to compare buildings at different times of the year or buildings in different climate zones.
+{\bf Predicted energy performance} based on statistical models are also considered, though these are problematic for reasons we describe in Section~\ref{existing-tool}.
+{\bf Relative} and {\bf absolute differences} from the observed energy performance and the predicted or historical performance are also important; for example, you could determine how much better or worse a building is performing relative to last year.
 And finally, given any of these derived values, you can create a {\bf ranking} to answer questions like {\it ``which are the top 5 worst performing buildings in my portfolio?''}.
 
 %-------------------------------------------------------------------------
@@ -270,15 +409,101 @@ And finally, given any of these derived values, you can create a {\bf ranking} t
 
 Let's move on now to the task abstractions.
 
-% table: task abstractions with examples
+\begin{table*}[bp]\renewcommand{\arraystretch}{1.2}\addtolength{\tabcolsep}{-1pt}
+    \vspace{-.3cm}
+    \begin{center}
+    \scriptsize
+    \begin{tabular}{p{0.125\textwidth}|>{\RaggedRight}p{0.15\textwidth}|>{\RaggedRight}p{0.15\textwidth}|>{\RaggedRight}p{0.15\textwidth}|>{\RaggedRight}p{0.15\textwidth}|>{\RaggedRight}p{0.15\textwidth}}
+
+        \rowcolor{nmYellow}
+    
+        {\bf Task} & \cellcolor{nmOrange} {\bf Domain activities} & {\bf Scope} & {\bf Abstraction: {\tt Actions}} & {\bf Abstraction: {\tt Targets}} & {\bf Example}
+        
+        \\
+        
+        \hline  
+        
+        %task name
+        \cellcolor{nmYellow} {\bf T1}: Overview 
+        
+        %domain activities
+        & \cellcolor{nmOrange} Determine which building(s) require energy conservation measures. Find anomalous energy performance.
+        
+        %scope
+        & The entire portfolio of buildings, coarser time periods. 
+        
+        %abstraction: actions
+        & {\it consume}: {\tt discover}, {\tt present}, {\tt enjoy}; {\it search}: {\tt lookup}; {\it query}: {\tt summarize}.
+        
+        %abstraction: targets
+        & {\it all data}: {\tt trends}, {\tt outliers}; {\it attributes}: {\tt distributions}, {\tt extremes}, {\tt similarities}. 
+        
+        %example question
+        & {\it ``How did my building portfolio perform this past year?''}
+        
+        \\
+        
+        \hline
+        
+        %task name
+        \cellcolor{nmYellow} {\bf T2}: Detail 
+        
+        %domain activities
+        & \cellcolor{nmOrange} Assess performance following energy conservation measures. Find and diagnose anomalous energy performance. 
+        
+        %scope
+        & Groups of buildings within the portfolio, finer time periods.
+        
+        %abstraction: actions
+        & {\it consume}: {\tt discover}; {\it search}: {\tt locate}; {\it query}: {\tt compare}. 
+        
+        %abstraction: targets
+        & {\it all data}: {\tt trends}, {\tt outliers}, {\tt features}.
+        
+        %example question
+        & {\it ``Are my restaurants in Vancouver performing better this January than they did last January?''}
+        
+        \\
+        
+        \hline
+        
+        %task name
+        \cellcolor{nmYellow} {\bf T3}: Proportion 
+        
+        %domain activities
+        & \cellcolor{nmOrange} Find and diagnose anomalous energy performance. 
+        
+        %scope
+        & Groups of buildings within the portfolio, finer time periods. 
+        
+        %abstraction: actions
+        & {\it consume}: {\tt discover}; {\it search}: {\tt locate}, {\it explore}; {\it query}: {\tt identify}. 
+        
+        %abstraction: targets
+        & {\it all data}: {\tt trends}, {\tt outliers}, {\tt features}; {\it attributes}: {\tt dependencies}. 
+        
+        %example question
+        & {\it ``What proportion of my university’s energy consumption is consumed by its computer science building over time?''}
+        
+        \\
+        
+        \hline  
+        
+    \end{tabular}
+    \vspace{-0.3cm}
+    \caption{A summary of the task abstractions (yellow) and their corresponding domain activities (orange). The task abstractions are characterized according to a recent task typology~\cite{Brehmer2013}, distinguishing between \textsl{actions} and \textsl{targets}~\cite{Munzner2014}.}
+    \label{tab:task-abstractions}
+    \end{center}
+    \vspace{-0.6cm}
+\end{table*}
 
 We characterized the task abstractions in this project using a recent task typology~\cite{Brehmer2013}, distinguishing between actions and targets~\cite{Munzner2014}.
 
-\bstart{T1 / Overview} the first task, Overview, is one in which the analyst performs a {\tt lookup} and {\tt summarizes} all the items over a period of time, and this corresponds to the domain activities of determining which buildings in the portfolio require energy conservation measures and finding anomalous energy behaviour. 
+\bstart{T1 / Overview} the first task, Overview, is one in which the analyst performs a {\tt lookup} and {\tt summarizes} all the items over a period of time, and this corresponds to the domain activities of determining which buildings in the portfolio require energy conservation measures and finding anomalous energy performance. 
 {\tt Trends}, {\tt outliers}, {\tt distributions}, {\tt extreme values}, and {\tt similarities} are of interest. 
 An example question would be {\it ``How did my building portfolio perform this past year?''}.
 
-\bstart{T2 / Detail} the second task is the result of drilling down from the portfolio to a group of buildings, examining behaviour in detail: {\tt locating} and {\tt comparing} data from groups of items over time, corresponding to the domain activities of assessing building behaviour following energy conservation measures, or finding and diagnosing anomalous energy behaviour. 
+\bstart{T2 / Detail} the second task is the result of drilling down from the portfolio to a group of buildings, examining performance in detail: {\tt locating} and {\tt comparing} data from groups of items over time, corresponding to the domain activities of assessing building performance following energy conservation measures, or finding and diagnosing anomalous energy performance. 
 An example question would be {\it ``Are my restaurants in Vancouver performing better this January than they did last January?''}.
 
 \bstart{T3 / Proportion} finally, the third task is the converse of drilling down, as once you've gone from portfolio to group, this task is about {\tt locating} and {\tt exploring} to {\tt identify} the proportion of individual energy use from individual items relative to the group.
@@ -300,7 +525,7 @@ You'll also notice the cycling between Detail ({\bf T2}) and Proportion ({\bf T1
 
 Now that we have characterized the data and task abstractions, we can analyze existing tools and related work and determine the extent to which the tasks are supported.
 
-% figure: energy manager screenshots
+%figure: energy manager screenshots
 
 We focus on {\it Energy Manager} first, our collaborator's existing software, which all of the energy workers we interviewed had used to a varying extent for performing portfolio energy analysis.
 
@@ -308,7 +533,7 @@ We focus on {\it Energy Manager} first, our collaborator's existing software, wh
 A summary dashboard is shown in the main page (the larger image on the right). 
 Those that we interviewed used this sparingly, if at all. 
 More detailed line and bar charts such as those shown on the left are indexed on the other pages, similar to how Microsoft {\it Excel} has workbooks, pages, and charts. 
-Unlike {\it Excel}, the visualizations here have some interactivity, such as zooming, panning, and mouse-over behaviour. 
+Unlike {\it Excel}, the visualizations here have some interactivity, such as zooming, panning, and mouse-over performance. 
 However, none of the visualizations are linked to one another or to the dashboard, so you have to navigate between them manually.
 
 \bstart{Analysis} {\it Energy Manager} uses a small number of visualization idioms: bar charts and grouped bar charts are used for derived aggregate values such as consumption, while superimposed line charts are used for continuous values such as demand. 
@@ -323,7 +548,7 @@ As in {\it Excel}, you have to locate an existing visualization or specify a new
 
 {\it Energy Manager} covers only a small part of the visualization design space: colour encoding, ordering in sorted tables, and limited navigation.
 You can select items manually when creating a line chart or bar chart, but you can't filter by shared item attributes, such as filtering a portfolio of buildings to only show restaurants.
-Similarly, you can't aggregate based on shared attributes: for instance, you can't compare the aggregate energy behaviour of restaurants in Vancouver to those in Calgary.
+Similarly, you can't aggregate based on shared attributes: for instance, you can't compare the aggregate energy performance of restaurants in Vancouver to those in Calgary.
 Aside from the seldom-used dashboard, there is no faceting in {\it Energy Manager}: the energy workers that we interviewed reported opening many browser windows, adjusting line or bar charts to display the same scale and ranges, and tiling these windows manually.
 Finally, there is no linking between visualizations, so it is difficult to drill down or alternate from Overview ({\bf T1}) to Detail ({\bf T2}) and Proportion ({\bf T3}) Tasks.
 Due to these limitations, {\it Energy Manager} provides only tiny slices of the multidimensional table, or aggregations that are far too coarse to be useful.
@@ -347,11 +572,11 @@ So how is this set of data and task abstractions addressed in related work?
 \bstart{Energy visualization} before we look broadly in the visualization literature, let's consider related work in the energy domain.
 Erickson~\etal~\cite{Erickson2013} recently presented a web-based residential energy dashboard for home-owners, allowing them to compare against their neighbours with {\bf familiar} bar and line charts. 
 However, this didn't address the analysis work of someone overseeing a portfolio of many buildings.
-More than 15 years ago, van Wijk and van Selow~\cite{vanWijk1999} presented a calendar matrix visualization for time-series data, and one use case they considered was the energy behaviour of a single building.
+More than 15 years ago, van Wijk and van Selow~\cite{vanWijk1999} presented a calendar matrix visualization for time-series data, and one use case they considered was the energy performance of a single building.
 Later we'll examine how this could be extended to multiple buildings.
 
-There are also several recent examples of using {\bf map-based visualizations} to summarize the energy behaviour of many buildings in a local area~\cite{Heat2014,MEP2014}.
-We found through our interviews with collaborators and their clients that maps are fine for presenting coarse aggregate summary values of energy behaviour but not for analysis work of multiple time series, especially when the energy worker is already {\bf familiar} with the locations of buildings in their portfolio, which may span large geographic areas. 
+There are also several recent examples of using {\bf map-based visualizations} to summarize the energy performance of many buildings in a local area~\cite{Heat2014,MEP2014}.
+We found through our interviews with collaborators and their clients that maps are fine for presenting coarse aggregate summary values of energy performance but not for analysis work of multiple time series, especially when the energy worker is already {\bf familiar} with the locations of buildings in their portfolio, which may span large geographic areas. 
 On the other hand, maps may be an effective way to filter a building portfolio by location, which is a feature that have considered.
 
 Most closely related to our work is that of Goodwin~\etal~\cite{Goodwin2013}, who presented a few prototype visualizations of modelled residential energy use at the device-level scale across thousands of households. 
@@ -376,7 +601,7 @@ However, these pertain to continuous time series, while our work examines both c
 
 We're now ready to dive into the visualization design.
 
-% figure: annotated sandbox
+%figure: annotated sandbox
 
 \bstart{An energy portfolio visualization sandbox} in this project, we developed an interactive visualization design sandbox, one where we could easily prototype different visualization designs. 
 Most of the designs in the following slides were produced within this interactive environment, which was developed using RStudio's Shiny web application framework\footnote{\url{shiny.rstudio.com}}.
@@ -412,7 +637,7 @@ The following slides present a subset of these findings.
 
 %-------------------------------------------------------------------------'
 
-% figure: faceting
+%figure: faceting
 
 We first tried to address the Overview ({\bf T1}) and Detail ({\bf T2}) tasks. 
 Recall that an example Overview question is {\it ``How did my entire building portfolio perform this past year?''}, while an example Detail question is {\it ``Are my restaurants in Vancouver performing better this January than they did last January?''}.
@@ -440,7 +665,7 @@ Furthermore, the line chart encoding is already quite {\bf familiar} to the ener
 
 %-------------------------------------------------------------------------
 
-% figure: bar + bump
+%figure: bar + bump
 
 Let's return now to that Overview ({\bf T1}) task and try something other than faceting.
 Remember how the ranking table in {\it Energy Manager} was never used for the Overview ({\bf T1}) task? In that it only provided coarse aggregated values for each item for one time period.
@@ -467,7 +692,7 @@ Therefore, the hunt for a good Overview ({\bf T1}) visualization continued.
 
 %-------------------------------------------------------------------------
 
-% figure: matrix-based visualizations
+%figure: matrix-based visualizations
 
 With faceting and rank-based visualizations proving ineffective, we next turned to a matrix-based representation for the Overview ({\bf T1}) task.
 
@@ -498,7 +723,7 @@ Together the matrix with juxtaposed boxplots is a match for the Overview ({\bf T
 
 %-------------------------------------------------------------------------
 
-% figure: proportion visualizations
+%figure: proportion visualizations
 
 Finally, now with the Overview ({\bf T1}) and Detail ({\bf T2}) tasks addressed, the Proportion ({\bf T3}) task remains. 
 Recall that a typical question here could be ``what proportion of a university's energy consumption is consumed by its computer science building over time?''.
@@ -516,7 +741,152 @@ As a result of this juxtaposition and linking, both the Detail ({\bf T2}) and Pr
 
 %-------------------------------------------------------------------------
 
-% table: task abstractions with examples + matches, mismatches
+\begin{table}[ht]\renewcommand{\arraystretch}{1.2}\addtolength{\tabcolsep}{-1pt}
+    \vspace{-.3cm}
+    \begin{center}
+    \scriptsize
+    \begin{tabular}{l|l|c}
+
+        \rowcolor{gray!15}
+    
+        {\bf Task} & {\bf Visualization Idiom} & {\bf Match?}
+        
+        \\
+        
+        %task
+        \cellcolor{nmYellow} {\bf T1}: Overview 
+        
+        %idiom
+        & \cellcolor{nmGreen} Faceted bar chart 
+        
+        %match?
+        & \mismatch
+        
+        \\
+        
+        %task
+        \cellcolor{nmYellow} %{\bf T1}: Overview 
+        
+        %idiom
+        & \cellcolor{nmGreen} Bump plot 
+        
+        %match?
+        & \mismatch
+        
+        \\
+        
+        %task
+        \cellcolor{nmYellow} %{\bf T1}: Overview 
+        
+        %idiom
+        & \cellcolor{nmGreen} Bar + bump plot 
+        
+        %match?
+        & \posmatch
+        
+        \\
+        
+        %task
+        \cellcolor{nmYellow} %{\bf T1}: Overview 
+        
+        %idiom
+        & \cellcolor{nmGreen} Map 
+        
+        %match?
+        & \mismatch
+        
+        \\
+        
+        %task
+        \cellcolor{nmYellow} %{\bf T1}: Overview 
+        
+        %idiom
+        & \cellcolor{nmGreen} (Calendar) matrix 
+        
+        %match?
+        & \posmatch
+        
+        \\
+        
+        %task
+        \cellcolor{nmYellow} %{\bf T1}: Overview 
+        
+        %idiom
+        & \cellcolor{nmGreen} Matrix + auxiliary boxplots 
+        
+        %match?
+        & \match
+        
+        \\
+        
+        \hline
+        
+        %task
+        \cellcolor{nmYellow} {\bf T2}: Detail 
+        
+        %idiom
+        & \cellcolor{nmGreen} Faceted bar chart 
+        
+        %match?
+        & \match
+        
+        \\
+        
+        %task
+        \cellcolor{nmYellow} %{\bf T2}: Detail 
+        
+        %idiom
+        & \cellcolor{nmGreen} Faceted boxplot 
+        
+        %match?
+        & \mismatch
+        
+        \\
+        
+        %task
+        \cellcolor{nmYellow} %{\bf T2}: Detail 
+        
+        %idiom
+        & \cellcolor{nmGreen} Faceted line graph 
+        
+        %match?
+        & \match
+        
+        \\
+        
+        \hline
+        
+        %task
+        \cellcolor{nmYellow} {\bf T3}: Proportion 
+        
+        %idiom
+        & \cellcolor{nmGreen} Stacked area graph 
+        
+        %match?
+        & \match
+        
+        \\
+        
+        %task
+        \cellcolor{nmYellow} %{\bf T3}: Proportion 
+        
+        %idiom
+        & \cellcolor{nmGreen} Stacked bar chart 
+        
+        %match?
+        & \match
+        
+        \\
+        
+        \hline  
+        
+    \end{tabular}
+    \vspace{-0.3cm}
+    \caption{A summary of the \textsl{matches} and \textsl{mismatches} between task abstractions and visualization idioms.}
+    \label{tab:matches-mismatches}
+    \end{center}
+    \vspace{-0.6cm}
+\end{table}
 
 To recap, we identified five matches between tasks ({\bf T1--T3}) and visualizations. 
 We also identified four mismatches and one potential match: that of a bump + bar plot for showing rank change over time; our hesitation to call this a match stems not from a problem with the visualization itself, but from energy workers' low priority on ranks as derived data.
@@ -538,7 +908,7 @@ At the top we see subsets of the data being superimposed onto the boxplot when b
 
 This interaction and linked highlighting is intended to promote engagement and facilitate the learning of both of these visual encodings, which are novel within the energy domain. These prototypes further convinced our collaborators that juxtaposing a matrix representation with linked auxiliary boxplots was a good idea.
 
-\bstart{Linked visualizations and interactive drill-down} using visualizations created within our sandbox and drawing from feedback from the energy workers that we interviewed, we created mockups and storyboards of filtering and selection behaviour, to describe how an energy worker would proceed from the Overview ({\bf T1}) task to the Detail ({\bf T2}) and Proportion ({\bf T3}) tasks, otherwise known as interactive drill-down behaviour.
+\bstart{Linked visualizations and interactive drill-down} using visualizations created within our sandbox and drawing from feedback from the energy workers that we interviewed, we created mockups and storyboards of filtering and selection performance, to describe how an energy worker would proceed from the Overview ({\bf T1}) task to the Detail ({\bf T2}) and Proportion ({\bf T3}) tasks, otherwise known as interactive drill-down performance.
 
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
@@ -607,7 +977,57 @@ By giving these controls to the energy worker and providing them with more agenc
 
 %-------------------------------------------------------------------------
 
-%table: methodology phases and artefacts
+\begin{table}[ht]\renewcommand{\arraystretch}{1.2}\addtolength{\tabcolsep}{-1pt}
+    \vspace{-.3cm}
+    \begin{center}
+    \scriptsize
+    \begin{tabular}{l|*{4}l}
+    
+        \rowcolor{gray!15}
+    
+        & \multicolumn{4}{c}{\bf Artefacts}
+        
+        \\
+
+        \rowcolor{gray!15}
+    
+        {\bf Phase} & \rot{slides, demos} & \rot{interviews} & \rot{annotations} & \rot{summary}
+        
+        \\
+        
+        \hline  
+        
+        (i) Work domain analysis & & \OK & & \OK
+        
+        \\
+        
+        (ii) Define and verify abstractions & \OK & \OK & \OK & \OK
+        
+        \\
+        
+        (iii) Develop visualization sandbox & \OK & & & \OK
+        
+        \\
+        
+        (iv) Evaluate visualizations, consider workflows & \OK & \OK & \OK & \OK
+        
+        \\
+        
+        (v) Prototyping specific interactions & \OK & & & 
+        
+        \\
+        
+        (vi) Production coding by collaborator & \OK & \OK & \OK &
+        
+        \\
+        
+    \end{tabular}
+    \vspace{-0.3cm}
+    \caption{A summary of our methodology, its phases and research artefacts.}
+    \label{tab:methodology}
+    \end{center}
+    \vspace{-0.6cm}
+\end{table}
 
 Another point of discussion is our methodology for conducting this visualization design study in an industry setting where the stakeholders included both our collaborator and their external clients. 
 These phases were referenced earlier in this talk, and this slide summarizes the phases and the research artefacts generated at each phase. Note that some of the phases overlap.
