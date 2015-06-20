@@ -1,0 +1,35 @@
+Cover letter of InfoVis 2015 submission #106: 
+
+Summary of revisions for "Matches, Mismatches, and Methods: Multiple-View Workflows for Energy Portfolio Analysis"
+
+We thank the reviewers for recommending that the paper be accepted, and for their feedback and suggestions. We especially thank R4 for her/his thought-provoking commentary about the maturation of the field and the future utility of design studies. We plan to integrate these comments into our conference presentation, and we hope to generate a fruitful discussion at the conference.
+
+We have made several revisions to our submission. The required revisions are summarized below in Section 1. The recommended revision is addressed in Section 2. Additional minor revisions are listed in Section 3. 
+
+1. Required revisions:
+
+(1) "Revisiting the guidelines:
+     
+• R4 and R2 suggest a different explanation of the complexity, which we would ask the authors to evaluate.
+    
+• Any clarifying statements as to the generalizability of these guidelines (R1, R2) would also be helpful."
+
+We have rethought the "complexity can reduce unfamiliarity" guideline in light of these reviews. Rather than frame this guideline in terms of complexity, R4 suggested that "diversity of visual idioms" may be more appropriate; "redundancy" (R2) may be similarly appropriate. We have decided to reframe this guideline as "persevere despite unfamiliarity", which is perhaps more apt given the trajectory of our design process. Based on comments from R1 and R2, we also replaced the second example (relating to diverging colour scales) with two examples alluded to earlier in the paper: a familiar calendar-based layout reduced the unfamiliarity of the time-series matrix encoding, and how the unfamiliar bar+bump plot encoding was positively received, since it combined two familiar encodings (bars and lines). 
+
+Similarly, we reframed the "take care with names" guideline as "beware assuming familiarity; we also consolidated the "heatmap" misnomer discussion in this section, as it was previously distributed throughout the previous sections.
+
+We noted that R2 praised the generalizability of the guidelines in their current form. As a result of our revisions, we feel that we have increased the generalizability of these guidelines to a greater extent. Reviewers did not have specific comments about the "trust" guidelines, aside from R1's comment about how they reflect common approaches in visualization; we feel that there is value nevertheless in succinctly and explicitly stating these guidelines, especially since the reviewers acknowledge that our paper ought to read by novice visualization researchers and practitioners, as well as domain collaborators.
+
+(2) "In addition, R2 suggests to rephrase the argument about line charts in the abstract."
+
+We have rephrased this statement to echo what is stated in the body of the paper, that this limitation is due to a combination of data semantics and domain convention.
+
+2. Recommended revisions:
+
+The summary review includes one recommended revision, which is to integrate post-deployment feedback from actual users (R3). Our collaborator intends to deploy the redesigned Energy Manager later this summer. Unfortunately, this means that we will be unable to include post-deployment feedback during the current round of revisions. However, we will be able to include post-deployment feedback in the conference presentation, as there will likely be opportunities to collect such feedback between the deployment and the end of October.
+
+3. Additional revisions and responses to individual reviewer comments:
+
+• Based on R1's comment, the outline paragraph in the introduction has been abbreviated.
+
+• We removed the "." from the [?".] statements in the Task Abstractions subsection (R1).

@@ -1,0 +1,386 @@
+------------------------ Submission 106, Summary Review -------------------
+
+Summary Rating:     4
+
+The Summary Review
+
+   All reviewers agree that this is an extremely well executed design study.
+   All aspects, the process, the system, and the writing are truly
+   exemplary. However, the reviewers are more divided on the issue of
+   whether this is an important contribution to the visualization research
+   community. We extensively debated the question "how does this paper
+   advance the discipline?" R4 in particular, but also R1 are hesitant about
+   the contributions in terms of methodology. While R4 criticizes mainly the
+   lack of (methodogical) novelty, R1 also has some concerns about the
+   specific guidelines, i.e., whether these can really be generalized based
+   on individual experiences.
+
+   R4 also discusses that some of the matches might not be easily
+   transferable to other domains as the specific constraints (e.g., no line
+   charts) don't widely apply.
+
+   At the same time, all reviewers agree that there is benefit in reading
+   this paper, especially for groups outside the core infovis community,
+   e.g., for potential collaborators or students entering the field.
+   In summary, the high quality of the work has convinced us that this paper
+   should be accepted.
+
+   As a required revision, we ask that the authors
+
+   (1) to revisit the guidelines:
+     * R4 and R2 suggest a different explanation of the complexity, which we
+   would ask the authors to evaluate.
+     * Any clarifying statements as to the generalizability of these
+   guidelines (R1, R2) would also be helpful.
+   
+>>> [paper]: revise familiarity guidelines (✓)
+>>> [cover letter]: discuss changes to familiarity guidelines, defend generalizability (✓)
+
+   (2) In addition, R2 suggests to rephrase the argument about line charts
+   in the abstract.
+   
+>>> [paper]: add additional domain convention statement abstract (✓)
+>>> [cover letter]: mention change (✓)
+
+   A recommended revision is to integrate post-deployment feedback from
+   actual users (R3).
+   
+>>> [paper]: added Summer 2015 deployment date (✓)
+>>> [cover letter]: not ready yet, maybe for presentation (✓)
+
+   Otherwise there is not much to improve in this paper!
+
+
+------------------------ Submission 106, Review 1 ------------------------
+
+Reviewer:           primary
+
+Expertise:          3  (Expert)
+
+Overall Rating      3.5 - Between Possible Accept and Accept
+
+Justification
+
+   The paper does a good job at following a methodological design study
+   process and contributes some insights into how to execute a design study,
+   in addition to reflection on these methodologies. It can be a valuable
+   example for novice visualization practitioners. However, some of the
+   guidelines are questionable or rather straight-forward, and the analysis
+   of matches and mismatches are not very generalizable.
+
+The Review
+
+   This paper describes the design process and the design of a visualization
+   tool for energy analysis targeted at managers of large building
+   portfolios. The authors describe the considered design space and analyze
+   matches and mismatches for the data and task combinations. The work is
+   expertly conducted and the paper is very well written both in terms of
+   structure and language and easy to follow.
+
+   I do have some concerns about the value to a reader of this paper. The
+   authors frame their contribution as a classification of matches and
+   mismatches between abstractions and visual encoding idioms for time
+   oriented data. While I do agree with their assessment of suitable idioms
+   for these tasks, the analysis seems to be rather straight-forward, such
+   that every skilled visualization designer would conduct a similar (if
+   only implicit) analysis. I think that the paper could serve as an example
+   for visualization practitioners on how to design visualization systems,
+   but I see limited value for the academic community.
+
+   The authors also claim their guidelines of familiarity and trust as a
+   contribution. I am not fully convinced, though, of the statement
+   regarding "Complexity can reduce unfamiliarity". The first example, about
+   the box-plots, is good, but the second one, about using derived values
+   for color scales seems to not support this guideline. Yes, using a
+   derived measure is more complex for the application developer, but in
+   this case I would argue that it is simpler (since it is closer to the
+   actual task) for the user. Hence, this is does not fit with the
+   guideline, in my opinion. In either case, I find that deriving such a
+   counter-intuitive guideline from two examples without any further
+   evidence not to be the strongest case.
+   
+>>> [paper]: remove diverging colour scale example, reframe as a guideline about perseverance (✓)
+>>> [cover letter]: mention changes (✓)
+
+   The other guideline in the familiarity category (take care with names) is
+   rather straight-forward.
+   
+>>> [paper]: reframe as "beware assuming familiarity"  (✓)
+>>> [cover letter]: mention changes (✓)
+
+   The guidelines regarding trust are interesting, but giving people the
+   power to see the raw data, and making them understand how data is derived
+   are both common approaches in visualization.
+
+>>> [cover letter]: mention value in succinct and explicit guidelines (✓)
+
+   I appreciate the section on methodology and methodological reflection -
+   methodology is where the paper is at its strongest in the first place. I
+   think it can serve as a nice example on how to design and implement
+   applied visualization techniques, and is also a good success story from
+   taking an existing tool, re-designing it, suggesting a prototypical
+   implementation, and observing which parts are realized in the final
+   interface.
+
+   However, I don't find that the methodological aspects significantly
+   expands upon the authors excellent previous work. Given my concerns
+   raised above, the lack of important methodological contributions, and a
+   visualization system that is not novel,  I think that this paper's impact
+   will be limited.
+
+   Other Comments:
+
+   I find the Outline subsection at the end of section 1 not very
+   informative. It could be omitted without loss of information.
+   Somewhat of a style question, but generally, I would write things like
+   >>...better than they did last January?". << without the final period, as
+   the ? is considered to close the sentence.
+   
+>>> [paper]: abbreviate outline, fix [?".] business (✓)
+>>> [cover letter]: mention changes (✓)
+
+------------------------ Submission 106, Review 4 ------------------------
+
+Reviewer:           secondary
+
+Expertise:          2  (Knowledgeable)
+
+Overall Rating:     2.5 - Between Reject and Possible Accept
+
+Justification
+
+   The work that was reported in this paper is clearly of high quality
+   showing good practice in the visualization design process. As an exemplar
+   of good practice when working with clients, this scores highly. Its major
+   weakness is that it is difficult to see what new contribution the paper
+   makes beyond the previous design study papers in this area. The paper
+   successfully generalises beyond the energy analyst context, but in doing
+   so, ends up stating what is established good practice rather than
+   methodological innovation. As a result, while I would like to see the
+   experience of this work shared with a wider audience, I don't think it
+   offer sufficient contribution to the discipline to justify acceptance. I
+   have reflected this in last point in my recommended score, but recognise
+   that it might appear unduly harsh  in that despite the lack of
+   innovation, it is a high quality piece of design work.
+
+The Review
+
+   There is no doubt that the work described here is a thoroughly documented
+   design study that considers visualization design workflow with greater
+   rigour and depth than many other reported studies. It is well written
+   throughout with frequent attempts to be explicit about the contributions
+   of the work and where observations may be generalised beyond the context
+   of the design study. There are many examples of good practice that should
+   be helpful to others embarking on similar visualization projects with
+   clients (e.g. the use of a prototyping sandbox to explore design
+   possibilities rapidly; the use of personalised slide decks for remote
+   chauffeured workflows; the mapping of abstracted task to abstracted
+   idiom). 
+
+   Much effort has been put, in the paper, to abstract and generalise the
+   design steps so that others from the visualization community and from
+   outside the energy analysis domain may draw value from the work. However,
+   I am not entirely convinced the authors succeed in doing this. For
+   example, the constraint that the line chart idiom could not be used to
+   show energy consumption because the analysts used this exclusively for
+   representing energy demand, may be important to recognise, but would not
+   be applied more generally. When abstracted as a constraint in the design
+   space, it merely represents and example of good practice rather than and
+   advance in the discipline. Likewise for some of the other abstractions
+   such as actions, targets, discovery and presentation (section 3). This
+   may seem like an unfair criticism to make of a piece of work that
+   provides evidence of a high quality and successful piece of visualization
+   design consultancy, but it is more difficult to see what is new here that
+   hasn't been reported elsewhere (not least by some of the authors
+   themselves).
+   
+>>> [cover letter]: discuss?
+
+   Section 7 of the paper is probably of most value to a wider readership as
+   care has been made to abstract matches, mismatches and potential matches.
+   As a methodological approach this form of categorisation has greatest
+   benefit when an exhaustive list of idioms are assessed in this way. I am
+   less convinced that the match/mismatch of idioms to tasks in Table 2 are
+   as universal as claimed in the text (p.5 final paragraph). For example,
+   the energy analysts may have found faceted bar charts unscalable in their
+   context, but there will be others where the number data facets are
+   manageable, or they are amenable to meaningful aggregation to provide
+   overview.
+   
+>>> [cover letter]: discuss?
+
+   The discussion around the (lack of) acceptance of box plots is useful,
+   particularly in the context of juxtaposing an unfamiliar idiom with a
+   more familiar one (p.7, col 2). This is strengthened further in section
+   10.1 under the discussion of familiarity. As a minor point, I would
+   question the term "complexity" in 10.1 as what I think is being suggested
+   is a "diversity' of idioms having the counter-intuitive benefit. This
+   need not be data complexity, nor even visual complexity (e.g. faceted bar
+   charts were rightly rejected for overview as when scaled, they were too
+   complex).
+   
+>>> [paper]: reframe "complexity" guideline (✓)
+>>> [cover letter]: mention changes (✓)
+
+   The supplementary material, both the video and the slide set, show the
+   depth and of the design exploration with the clients and the richness of
+   the prototypes generated. They both add value to the submission.
+
+   Overall, my feeling towards this paper is ambivalent. There is no doubt
+   that the work that was carried out with and for the energy analysis was
+   of high quality, followed good practice, considered and assessed a range
+   of visualization idioms with care and led to successful incorporation of
+   some of the recommendations into working deployed software. In that sense
+   the paper deserves to be shared with a wider audience as a "success
+   story". But I am also concerned that ultimately the work is incremental
+   in its contribution to the discipline. Most of the approaches are not new
+   (and have been articulated with clarity previously by some of the paper's
+   authors). Those that are specific to this paper, are just that, and are
+   not necessarily generalizable beyond the energy analysts' context. I
+   think the space for 'design studies' in infovis is shrinking as he
+   subject matures. A modern design study has to demonstrate more than 'good
+   practice' to move the discipline forward. The authors are perhaps victims
+   of their own success here as they have, more than many, previously done
+   much to increase the quality of design study work and theory.
+   
+>>> [cover letter]: discuss?
+
+------------------------ Submission 106, Review 2 ------------------------
+
+Reviewer:           external
+
+Expertise:          2  (Knowledgeable)
+
+Overall Rating:     4.5 - Between Accept and Strong Accept
+
+Justification
+
+   The paper contributes design choice justifications, guidelines and
+   lessons learned that are generalizable beyond the application domain at
+   hand. It appears relevant to any designer of visualizations for time
+   oriented data. The technical quality and completeness of the work is
+   impressive, and the writup is well-structured and reads fluently. It is
+   obvious, also from the supplemental material, that a lot of careful work
+   has been put into this project. The fact that I found only a few minor
+   remarks explains the good grading.
+
+The Review
+
+   The paper presents a design study of visualizations and workflows in the
+   energy sector, with generalizable guidelines and reflections. It is a
+   beautiful example of how a design study is to be carried out, with good
+   abstractions, design justifications, and a convincing evaluation. The
+   technical quality is very high. A personal favorite is the discussion
+   section, as most of the presented guidelines and also the methodological
+   reflections are helpful for researchers and practitioners well beyond the
+   application domain. 
+   
+>>> [cover letter]: mention praise for generalizabilty of guidelines (✓)   
+
+   I also want to highlight the presentation quality of the paper, with
+   respect to structure and style. Also, the supplemental material has been
+   carefully prepared and is convincing.
+
+   As one concern, I am not entirely sure about the unexpectedness of many
+   of the findings for the visualization community. Most of them I could
+   believe immediately as they made sense or confirmed things I have
+   experienced myself somehow but not read before.
+   
+>>> [cover letter]: discuss value in explicitly stating what was implicit knowledge? (✓)
+
+   Aside from this, I have two particular remarks:
+
+   1) I liked the guidelines regarding familiarity and trust, but I was
+   least happy with the first one, "complexity can reduce unfamiliarity". It
+   would benefit from a clarification under which conditions this can work
+   as nicely as in your example of matrix + boxplot. My guess is, the two
+   plots help each other out didactically due to the partial redundancy in
+   the information they convey (dark matrix cells are likely to co-occur
+   with a boxplot farther right etc.) - i.e., a growing understanding of one
+   helps understand the other. It has to be the right kind of added
+   complexity that supports comprehension, I think, which could be pointed
+   out to reduce the risk of this guideline being misunderstood.
+   Furthermore, I am not sure if the diverging color scale for the diverging
+   variable "savings" counts as added complexity. I am not surprised that
+   reading the diverging one feels easier, since interpreting a
+   zero-symmetrical variable involves a qualitative interpretation of the
+   sign, which is perfectly encoded by the diverging scale. Furthermore, I
+   think that the larger perceptual variance of the diverging scale helps to
+   discern subtle differences better than using a unidirectional one. 
+   
+>>> [paper]: reframe "complexity" guideline (✓)
+>>> [cover letter]: mention changes (✓)
+
+   2) According to the abstract, the proposed designs "address research
+   questions pertaining to scalability, view coordination and the
+   inappropriateness of line graphs for derived and aggregated data". From
+   this, I somehow expected objective arguments against line graphs for
+   aggregated data. In my experience, they can be very effictive to expose,
+   e.g., that one consumption timeseries exhibits its peak an hour earlier
+   than all the others. As I understand it, you are forced to avoid them
+   since energy workers have attributed a very particular meaning to them.
+   This makes sense, but the way this issue is sold in the beginning of the
+   paper, it might disappoint readers expecting a more objective discussion
+   of the matter.
+   
+>>> [paper]: rephrase abstract (✓)
+>>> [cover letter]: mention changes (✓)
+
+
+------------------------ Submission 106, Review 3 ------------------------
+
+Reviewer:           external
+
+Expertise:          2  (Knowledgeable)
+
+Overall Rating:     4.5 - Between Accept and Strong Accept
+
+Justification
+
+   The paper presents the results of closely working with domain experts to
+   modify their workflow for visualizing energy consumption in buildings.
+   "Energy workers," as defined in their paper, are experts who monitor
+   energy consumption in buildings. The strengths of the paper are that it
+   is well structured, well presented, and truly incorporates the lessons
+   learned from previous research findings in the field of information
+   visualization (specifically as it pertains to energy consumption). The
+   only slight weakness of this paper is that the impact of their integrated
+   visualizations is difficult to understand at this point. 
+
+   Despite the lack of a post-hoc user evaluation with the redesigned Energy
+   Manager, I believe this is a good candidate for the 'Best paper' since it
+   is an excellent example of an application paper. The visualization
+   techniques are not at all new, but the authors ability to work with the
+   energy workers, identify their constrains, and yet convince them of the
+   benefits of some unknown (to them) visualization techniques, is truly a
+   success story in my eyes. 
+
+The Review
+
+   The authors present an application paper that works with domain experts
+   to understand their workflow needs, identifies the limitations of the
+   existing system (Energy Manager), and through close collaboration with
+   domain experts results in a new, improved Energy Manager that is
+   currently deployed. 
+
+   The discussion section (Section 10) has some of the best lessons that any
+   researcher looking to collaborate with domain experts can learn. Having
+   worked with domain experts on various projects, the familiarity and trust
+   issues constantly crop up and being able to address them in a consistent
+   and transparent manner was one of the reasons why I like this paper. 
+   
+>>> [cover letter]: discuss praise for generalizability of guidelines (✓)
+
+   The sandbox developed also helped the energy workers "visualize" exactly
+   what the team was suggesting and it helped them fine tune their
+   expectations as well as educate the domain experts about "heat maps" and
+   bump plots.
+
+   As mentioned before, my only concern is with respect to the evaluation of
+   the deployed new version of Energy Manager. I am curious to hear whether
+   the energy managers are using the new system and whether it is fulfilling
+   their visualization and workflow needs. 
+   
+>>> [cover letter]: no post-deployment eval in revision cycle (✓)
+
+   The supplemental material was very well formatted and prepared. 
