@@ -144,12 +144,6 @@ The energy performance of large building portfolios is challenging to analyze an
  \CCScat{H.5.2}{Information Interfaces and Presentation (e.g. HCI)}{User interfaces}{Graphical user interfaces (GUI), Evaluation/methodology, User-centered design}
 }
 
-%% Uncomment below to include a teaser figure.
-%   \teaser{
-%   \centering
-%   \includegraphics[width=16cm]{CypressView}
-%   \caption{In the Clouds: Vancouver from Cypress Mountain.}
-%   }
 
 %% Uncomment below to disable the manuscript note
 %\renewcommand{\manuscriptnotetxt}{}
@@ -232,7 +226,7 @@ Finally, we reflect on familiarity, trust, and on methodological considerations 
 %-------------------------------------------------------------------------
 
 % Prior to characterizing our data and task abstractions, we introduce the {\it energy worker}, along with their domain goals and activities.
-In this section, we focus on {\it how} we conducted our research; we reflect upon our methodological decisions and provide methodological advice in Section~\ref{discussion-methodology}. 
+In this section, we focus on {\it how} we conducted our research; we reflect upon our methodological decisions and offer advice in Section~\ref{discussion-methodology}. 
 
 \bstart{Analyzing the work domain}
 Over the course of five months in 2013, we conducted 9 in-depth interviews with current users of Energy Manager.
@@ -262,7 +256,7 @@ Since many of the energy workers that we consulted with are located in other cit
 % \bstart{Remote stakeholders} contributed to the logistical complexity of each phase of our project. 
 % As a result, we relied heavily on videoconferencing, screen sharing, and screen capture software.
 % \tm{still not quite right framing here. the point about really needing to show them their own data needs to be more front and center, not hidden in the remote part. maybe integrated into the previous slide deck stuff? }
-During these sessions, we shared our screen and conducted {\it chauffeured workflows} using our visualization sandbox: we would present the energy worker with data from their own portfolio and ask them to step through their energy analysis workflow with our alternative visual encoding designs.
+During these sessions, we shared our screen and conducted {\it chauffeured workflows}~\cite{Lloyd2011} using our visualization sandbox: we would present the energy worker with data from their own portfolio and ask them to step through their energy analysis workflow with our alternative visual encoding designs.
 These sessions were recorded for further analysis and their feedback was later transcribed as annotations on the session's slide deck.
 The result of this phase was the identification of a set of {\it matches} and {\it mismatches} between visual encoding idioms and individual tasks, which we discuss in Section~\ref{design:visenc}. 
 % , and throughout this period we elicited feedback from our collaborators and from external energy workers to identify visual encoding idioms that {\it match} the data and tasks.
@@ -350,7 +344,7 @@ We now abstract a portfolio of buildings and its associated time-oriented energy
     
         \\
         
-        Location & spatial & 49.25$^{\circ}$ N, 123.10$^{\circ}$ W
+        Location & spatial & 49.26$^{\circ}$ N, 123.25$^{\circ}$ W
     
         \\
         
@@ -442,7 +436,7 @@ A portfolio may have many building groups, and they may overlap.
 
 \bstart{Multiple time series per building} The energy performance of each building in a portfolio is monitored over time, and each building has multiple time series associated with it.
 A building may consume several forms of energy, such as electricity, natural gas, or steam.
-Many non-residential buildings are equipped to report raw energy demand values every 15 minutes, along with outdoor air temperature. 
+Many non-residential buildings are equipped to report raw energy demand values at the granularity of minutes, along with outdoor air temperature. 
 Finally, building opening and closing hours are also recorded.
 
 \bstart{Derived data} Raw continuous energy {\it demand} data is typically examined during detailed investigations of single buildings at fine granularities of time; for instance, a building might exhibit an unexpected spike in demand on a Sunday morning. 
@@ -609,7 +603,7 @@ Since superimposed line charts and grouped bar charts are limited by the number 
 
 The Roll Up ({\bf T3}) task is not explicitly supported. Though it is possible to estimate the proportion of a building's energy performance relative to its group with bars and lines, this process is error-prone.
 
-\bstart{Task sequences not supported} Because the visualizations in Energy Manager are not coordinated or linked in any way, it is difficult and tedious to alternate from Overview ({\bf T1}) to Drill Down ({\bf T2}) and Roll Up ({\bf T3}) Tasks. 
+\bstart{Task sequences not supported} Because the visualizations in Energy Manager are not coordinated or linked in any way, it is difficult and tedious to alternate from Overview ({\bf T1}) to Drill Down ({\bf T2}) and Roll Up ({\bf T3}) tasks. 
 As in Excel, the energy worker will have to locate an existing visualization or specify a new visualization using a wizard dialog; if the bar or line chart for a set of buildings does not already exist when the energy worker needs it, she has to create it. 
 By the time she has created it, she may have forgotten her objective.
 
@@ -1056,7 +1050,7 @@ Our design discussion up to this point has focused on visual encoding choices fo
 \bstart{Juxtaposed matrix and boxplots} {\it a match} \{\match\} {\it for the} Overview ({\bf T1}) {\it task}.
 One reason to juxtapose views is to support a single task with complementary data.
 None of the encodings discussed thus far are a clear match for the Overview task, although the time series matrix designs described in Section~\ref{design-matrix} showed promise.
-A problem with the matrix encodings is that they display coarse aggregate values only, such as averages or sums for each matrix cell. 
+A problem with the matrix encodings is that they only display coarse aggregate values, such as averages or sums for each matrix cell. 
 Recall from Section~\ref{design-faceting} that an energy worker made the same remark about faceted bar charts.
 Partitioning a matrix into calendars is one way to show a finer resolution in the same amount of space, however this encoding will not always be appropriate: for instance, an energy worker may be interested in a time span shorter than a month, or longer than several years.
 The alternative that we developed involves complementing and reinforcing the aggregate values in the original matrix design by juxtaposing single boxplots that encode ranges and distributions for each time series, as shown in Figure~\ref{fig:sandbox}.
@@ -1106,7 +1100,7 @@ Currently, four facets are shown in a row, with additional facets wrapping to su
 
 \bstart{Sequenced view navigation}
 % However, the sandbox did not allow us to directly investigate interactions involving coordinated selection across juxtaposed visualizations, nor did it allow us to easily prototype interactive workflows to support the task sequence 
-Recall that the Drill Down ({\bf T2}) and Roll Up ({\bf T3}) tasks involve fewer buildings and finer temporal resolutions than the Overview ({\bf T1}) task, which has broader scope; 
+Recall that the Drill Down ({\bf T2}) and Roll Up ({\bf T3}) tasks involve fewer buildings and finer temporal resolutions than the Overview ({\bf T1}) task, which has a broader scope; 
 thus, it would be inappropriate to juxtapose the Overview visualizations with the Drill Down and Roll Up visualizations in a single display.
 Instead, we considered how an energy worker would navigate between these views shown on separate displays.
 Beginning with the matrix and auxiliary boxplots, the energy worker can perform the Overview task, select units of interest, and filter or aggregate buildings in the portfolio. 
@@ -1165,7 +1159,7 @@ Stacked and faceted visualizations are currently shown separately; our collabora
 %-------------------------------------------------------------------------
 %-------------------------------------------------------------------------
 
-We now step back from specific aspects of visualization design for time-oriented data to discuss higher-level guidelines, to reflect upon on our methodology, and to suggest future work.
+We now step back from specific aspects of visualization design for time-oriented data to discuss higher-level guidelines, to reflect upon on our methodology, and to indicate future work.
 
 %-------------------------------------------------------------------------
 
@@ -1190,11 +1184,11 @@ We similarly persevered with the unfamiliar bump plot: by superimposing a layer 
 % {\it Combine familiar idioms}: Familiar visual encodings can be combined in unfamiliar ways, such as the bars and lines in the {\it bump + bar plot} of Section~\ref{design-ranking}. In this instance, the novel combination of familiar encodings was easily interpreted and energy workers responded enthusiastically to them. 
 % We encourage others to try and report on other novel combinations of familiar idioms.
 
-{\it Beware assuming familiarity}: Introducing visual idioms using names that are well-known in the visualization literature can be misleading when they allude to familiar concepts in a way that is unfamiliar to the target audience, as we found with energy workers and the word ``{\it heat map}''~\cite{Field2015,Wilkinson2009}.
+{\it Beware assuming familiarity}: Introducing visual idioms using names that are well-known in the visualization literature can be misleading when they allude to familiar concepts in a way that is unfamiliar to the target audience, as we found with energy workers and the term ``{\it heat map}''~\cite{Field2015,Wilkinson2009}.
 We initially referred to the time-series matrices as ``heat maps'', but this visualization term led to considerable confusion because of conflicting domain conventions with the energy-related meaning of {\it heat} and expectations raised by the word {\it map}: this encoding does not show energy solely used for heating, nor does it show the geographic location of buildings\footnote{This confusion is not unique to the energy domain~\cite{Field2015,Wilkinson2009}.}. 
 In the redesigned Energy Manager, the time-series matrix is referred to as a {\it Site Overview}.
 
-We also had a difficult experience gathering feedback about boxplots because the name itself was unfamiliar. 
+We also had a difficult experience gathering feedback about boxplots because the term itself was unfamiliar. 
 In the redesigned Energy Manager, the boxplots are referred to as the {\it Value Range} visualization, a term that appears to be understood. % move the stuff from previous results section to here
 In hindsight, we could have explicitly solicited visualization names from energy workers early on in the process based on their own descriptions~\cite{Metoyer2012}. 
 
