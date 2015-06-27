@@ -2,9 +2,7 @@ Cover letter of InfoVis 2015 submission #106:
 
 Summary of revisions for "Matches, Mismatches, and Methods: Multiple-View Workflows for Energy Portfolio Analysis"
 
-We thank the reviewers for recommending that the paper be accepted, and for their feedback and suggestions. We especially thank R4 for her/his thought-provoking commentary about the maturation of the field and the future utility of design studies. We plan to integrate these comments into our conference presentation, and we hope to generate a fruitful discussion at the conference.
-
-We have made several revisions to our submission. The required revisions are summarized below in Section 1. The recommended revision is addressed in Section 2. Additional minor revisions are listed in Section 3. 
+We thank the reviewers for recommending that the paper be accepted, and for their feedback and suggestions. We have made several revisions to our submission. The required revisions are summarized below in Section 1. The recommended revision is addressed in Section 2. Additional minor revisions are listed in Section 3. High-level questions are covered in Section 4.
 
 1. Required revisions:
 
@@ -14,7 +12,7 @@ We have made several revisions to our submission. The required revisions are sum
     
 • Any clarifying statements as to the generalizability of these guidelines (R1, R2) would also be helpful."
 
-We have rethought the "complexity can reduce unfamiliarity" guideline in light of these reviews. Rather than frame this guideline in terms of complexity, R4 suggested that "diversity of visual idioms" may be more appropriate; "redundancy" (R2) may be similarly appropriate. We have decided to reframe this guideline as "persevere despite unfamiliarity", which is perhaps more apt given the trajectory of our design process. Based on comments from R1 and R2, we also replaced the second example (relating to diverging colour scales) with two examples alluded to earlier in the paper: a familiar calendar-based layout reduced the unfamiliarity of the time-series matrix encoding, and how the unfamiliar bar+bump plot encoding was positively received, since it combined two familiar encodings (bars and lines). 
+We have rethought the "complexity can reduce unfamiliarity" guideline in light of these reviews. Rather than frame this guideline in terms of complexity, R4 suggested that "diversity of visual idioms" may be more appropriate; "redundancy" (R2) may be similarly appropriate. We have decided to reframe this guideline as "persevere despite unfamiliarity", which is apt given the trajectory of our design process. Based on comments from R1 and R2, we also replaced the second example (relating to diverging colour scales) with two examples alluded to earlier in the paper: a familiar calendar-based layout reduced the unfamiliarity of the time-series matrix encoding, and how the unfamiliar bar+bump plot encoding was positively received, since it combined two familiar encodings (bars and lines). 
 
 Similarly, we reframed the "take care with names" guideline as "beware assuming familiarity; we also consolidated the "heatmap" misnomer discussion in this section, as it was previously distributed throughout the previous sections.
 
@@ -33,3 +31,13 @@ The summary review includes one recommended revision, which is to integrate post
 • Based on R1's comment, the outline paragraph in the introduction has been abbreviated.
 
 • We removed the "." from the [?".] statements in the Task Abstractions subsection (R1).
+
+4. High-level questions:
+
+• R4 comments on the place of design studies as the field matures, and where to draw the line between simply documenting good practice and research contributions 
+
+We especially thank R4 for her/his thought-provoking commentary about the maturation of the field and the future utility of design studies! 
+
+We agree that (and are delighted that) the field has matured to the point where design studies must now be far more sophisticated than in earlier years to get published. We respectfully disagree that design studies offer decreasing benefits as the field matures; we continue find them a vibrant and rich source of ideas. These days authors need to articulate abstractions for task and data far more explicitly than in the old days, and we think that's a good thing. As we've argued elsewhere, we think there's value in providing guidelines that, in addition to sometimes proposing completely new things, focus on refuting, extending, and refining the previous conventional wisdom. We're intrigued by the interplay between abstractions and guidelines - especially that as abstractions are refined, guidelines about their use must also be. That philosophy perhaps where we diverge from R4's interpretation, and argue that the "specifics" of this situation are of potential interest beyond the energy analysis domain exactly because we have framed the discussion in terms of visualization abstractions rather than the vocabulary of the domain. 
+
+Unfortunately, lack of space keeps us from directly addressing this question further in the paper itself. We do plan to integrate this commentary/critique into our conference presentation, and we hope to generate a fruitful discussion at the conference.
